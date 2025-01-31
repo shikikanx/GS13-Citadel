@@ -77,6 +77,7 @@
 
 	dat	+=	{"<HR>"}//Newline for the objects
 	//bottom options
+	dat	+= "<a href='byond://?src=[REF(src)];toggle_giant=1'>Toggle others' giant sprites</A>" //GS13 Edit
 	dat	+= "<a href='byond://?src=[REF(src)];refresh=1'>Refresh</A>"
 	dat	+= "<a href='byond://?src=[REF(src)];omenu=1'>Old Menu</A>"
 	dat	+= "<a href='byond://?src=[REF(src)];underwear=1'>Toggle Undergarments </A>"
@@ -279,6 +280,11 @@
 
 	if(href_list["underwear"])
 		H.underwear_toggle()
+		return
+
+	if(href_list["toggle_giant"])
+		if(H && H.client)
+			H.client.toggle_others_giant()
 		return
 
 	src.ui_interact(usr)

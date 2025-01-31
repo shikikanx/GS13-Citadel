@@ -16,3 +16,16 @@
 	tools = list(TOOL_WELDER, TOOL_WRENCH, TOOL_SCREWDRIVER)
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISCELLANEOUS
+
+/datum/crafting_recipe/liberator // It's easy to craft, but it's not a good gun.
+	name = "Liberator Pistol"
+	reqs = list(
+		/obj/item/stack/sheet/metal = 3,
+		/obj/item/weaponcrafting/receiver = 1,
+		/obj/item/ammo_casing/c10mm = 1,
+		)
+
+	result = /obj/item/gun/ballistic/liberator
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
