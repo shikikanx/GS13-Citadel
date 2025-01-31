@@ -36,7 +36,7 @@
 		var/mob/living/carbon/human/human_eater = M
 		K = human_eater.wear_neck
 	if(M == user)
-		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter))
+		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked())
 			user.visible_message("<span class='notice'>[user] effortlessly swallows a gulp of [src].</span>", "<span class='notice'>You effortlessly swallow a gulp of [src].</span>")
 		//GS13 - End
 		else
@@ -49,7 +49,7 @@
 			return // The drink might be empty after the delay, such as by spam-feeding
 		M.visible_message("<span class='danger'>[user] feeds the contents of [src] to [M].</span>", "<span class='userdanger'>[user] feeds the contents of [src] to [M].</span>")
 		log_combat(user, M, "fed", reagents.log_list())
-	if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_drink(src, M, user))) //GS13 - Bluespace Collar
+	if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_drink(src, M))) //If wearing a BS collar, use BS proc. If not, continue as normal
 		var/fraction = min(gulp_size/reagents.total_volume, 1)
 		checkLiked(fraction, M)
 		reagents.reaction(M, INGEST, fraction)

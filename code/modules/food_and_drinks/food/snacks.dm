@@ -125,7 +125,7 @@ All foods are distributed among various categories. Use common sense.
 		var/obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter/K = human_eater.wear_neck //GS13 - Bluespace collar
 		if(M == user)								//If you're eating it yourself.
 			//GS13 - Bluespace collar addition
-			if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter))
+			if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked()) //Feeding with a collar ignores fullness or junkness
 				user.visible_message("<span class='notice'>[user] effortlessly [eatverb]s \the [src].</span>", "<span class='notice'>You effortlessly [eatverb] \the [src], feeling as if you haven't eaten anything at all.</span>")
 			//GS13 - End
 			else if(junkiness && M.satiety < -150 && M.nutrition > NUTRITION_LEVEL_STARVING + 50 )
@@ -147,7 +147,7 @@ All foods are distributed among various categories. Use common sense.
 		else
 			if(!isbrain(M))		//If you're feeding it to someone else.
 				//GS13 - Bluespace collar addition
-				if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter))
+				if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked()) //Feeding with a collar ignores fullness
 					M.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>", \
 											"<span class='userdanger'>[user] attempts to feed you [src].</span>")
 				//GS13 - End
@@ -168,7 +168,7 @@ All foods are distributed among various categories. Use common sense.
 			else
 				to_chat(user, "<span class='warning'>[M] doesn't seem to have a mouth!</span>")
 				return
-		if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_food(src, M, user)))
+		if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_food(src, M, user))) //If wearing a BS collar, use BS proc. If not, continue as normal
 			if(reagents)								//Handle ingestion of the reagent.
 				if(M.satiety > -200)
 					M.satiety -= junkiness

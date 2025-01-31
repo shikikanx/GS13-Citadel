@@ -117,7 +117,7 @@ Behavior that's still missing from this component that original food items had t
 			return
 		var/eatverb = pick(eatverbs)
 		//GS13 - Bluespace collar addition
-		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter))
+		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked())
 			eater.visible_message("<span class='notice'>[eater] effortlessly [eatverb]s \the [parent].</span>", "<span class='notice'>You effortlessly [eatverb] \the [parent], feeling as if you haven't eaten anything at all.</span>")
 		//GS13 - End
 		else if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
@@ -139,12 +139,7 @@ Behavior that's still missing from this component that original food items had t
 		if(isbrain(eater))
 			to_chat(feeder, "<span class='warning'>[eater] doesn't seem to have a mouth!</span>")
 			return
-		//GS13 - Bluespace collar addition
-		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter))
-			eater.visible_message("<span class='danger'>[feeder] attempts to feed [eater] [parent].</span>", \
-									"<span class='userdanger'>[feeder] attempts to feed you [parent].</span>")
-		//GS13 - End
-		else if(fullness <= (600 * (1 + eater.overeatduration / 1000)))
+		if(fullness <= (600 * (1 + eater.overeatduration / 1000)))
 			eater.visible_message("<span class='danger'>[feeder] attempts to feed [eater] [parent].</span>", \
 									"<span class='userdanger'>[feeder] attempts to feed you [parent].</span>")
 		else

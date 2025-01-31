@@ -57,6 +57,28 @@
 	category = list("Equipment", "Misc", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
+/datum/design/bluespace_collar_receiver
+	name = "Bluespace collar receiver"
+	desc = "A collar containing a miniaturized bluespace whitehole. Other bluespace transmitter collars can connect to this, causing the wearer to receive food from other transmitter collars directly into the stomach."
+	id = "bluespace_collar_receiver"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1000, /datum/material/calorite = 2500, /datum/material/bluespace = 250)
+	construction_time = 75
+	build_path = /obj/item/clothing/neck/petcollar/locked/bluespace_collar_receiver
+	category = list("Equipment", "Misc", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
+/datum/design/bluespace_collar_transmitter
+	name = "Bluespace collar transmitter"
+	desc = "A collar containing a miniaturized bluespace blackhole. Can be connected to a bluespace collar receiver to transmit food to a linked receiver collar. "
+	id = "bluespace_collar_transmitter"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1000, /datum/material/calorite = 1000, /datum/material/bluespace = 500)
+	construction_time = 75
+	build_path = /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter
+	category = list("Equipment", "Misc", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
 /datum/design/cyberimp_nutriment_turbo
 	name = "Nutriment Pump Implant TURBO"
 	desc = "This implant was meant to prevent people from going hungry, but due to a flaw in its designs, it permanently produces a small amount of nutriment overtime."
