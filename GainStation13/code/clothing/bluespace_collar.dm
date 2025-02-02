@@ -75,7 +75,7 @@
 			eater.satiety -= owner.junkiness
 		playsound(eater.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 		playsound(original_eater.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-		eater.visible_message("<span class='warning'>[eater]'s belly seems to visibly distend a bit further'!</span>", "<span class='danger'>You feel your stomach get filled by something!</span>")
+		eater.visible_message("<span class='warning'>[eater]'s belly seems to visibly distend a bit further'!</span>", "<span class='danger'>You feel your stomach get filled by food!</span>")
 		var/bitevolume = 1
 		if(HAS_TRAIT(original_eater, TRAIT_VORACIOUS))
 			bitevolume = bitevolume * 0.67
@@ -175,7 +175,7 @@
 	food_reagents.trans_to(eater, food_size)
 	eater.fullness += food_size
 	food.checkLiked(food_size, eater) //...Hopefully you like the taste.
-	eater.visible_message("<span class='warning'>[eater]'s belly seems to greatly distend, as if it was being inflated with large amounts of food.</span>", "<span class='danger'>You feel an immense pressure in your stomach, as if food was pumped directly into you.</span>")
+	eater.visible_message("<span class='warning'>[eater]'s belly seems to greatly distend, as if it was being inflated with large amounts of food.</span>", "<span class='danger'>You feel an immense pressure in your stomach, as if large amounts of food were pumped directly into you.</span>")
 	return TRUE
 
 // For feeding tube
