@@ -149,7 +149,7 @@ Borg Hypospray
 
 /obj/item/reagent_containers/borghypo/hacked
 	icon_state = "borghypo_s"
-	reagent_ids = list (/datum/reagent/toxin/acid, /datum/reagent/toxin/mutetoxin, /datum/reagent/toxin/cyanide, /datum/reagent/toxin/sodium_thiopental, /datum/reagent/toxin/heparin, /datum/reagent/toxin/lexorin)
+	reagent_ids = list (/datum/reagent/toxin/acid, /datum/reagent/toxin/mutetoxin, /datum/reagent/toxin/cyanide, /datum/reagent/toxin/sodium_thiopental, /datum/reagent/toxin/heparin, /datum/reagent/toxin/lexorin, /datum/reagent/consumable/lipoifier) //GS13 EDIT, Lipoifier
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/clown
@@ -248,7 +248,7 @@ Borg Shaker
 	charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
-	reagent_ids = list(/datum/reagent/toxin/fakebeer, /datum/reagent/consumable/ethanol/fernet)
+	reagent_ids = list(/datum/reagent/toxin/fakebeer, /datum/reagent/consumable/ethanol/fernet, /datum/reagent/consumable/lipoifier) //GS13 EDIT LIPOIFIER
 
 /obj/item/reagent_containers/borghypo/peace
 	name = "Peace Hypospray"
@@ -261,7 +261,7 @@ Borg Shaker
 	icon_state = "borghypo_s"
 	reagent_ids = list(/datum/reagent/peaceborg_confuse, /datum/reagent/peaceborg_tire, /datum/reagent/pax/peaceborg,
 					/datum/reagent/toxin/staminatoxin,/datum/reagent/toxin/sulfonal,/datum/reagent/toxin/sodium_thiopental,
-					/datum/reagent/toxin/cyanide,/datum/reagent/toxin/fentanyl)
+					/datum/reagent/toxin/cyanide,/datum/reagent/toxin/fentanyl, /datum/reagent/consumable/lipoifier) //GS13 EDIT adds lipoifier
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/epi
