@@ -30,9 +30,17 @@
 	if (!is_drainable())
 		to_chat(user, "<span class='warning'>[src]'s lid hasn't been opened!</span>")
 		return FALSE
-
+	//GS13 - Bluespace collar addition
+	var/obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter/K = 0
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/human_eater = M
+		K = human_eater.wear_neck
 	if(M == user)
-		user.visible_message("<span class='notice'>[user] swallows a gulp of [src].</span>", "<span class='notice'>You swallow a gulp of [src].</span>")
+		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked())
+			user.visible_message("<span class='notice'>[user] effortlessly swallows a gulp of [src].</span>", "<span class='notice'>You effortlessly swallow a gulp of [src].</span>")
+		//GS13 - End
+		else
+			user.visible_message("<span class='notice'>[user] swallows a gulp of [src].</span>", "<span class='notice'>You swallow a gulp of [src].</span>")
 	else
 		M.visible_message("<span class='danger'>[user] attempts to feed the contents of [src] to [M].</span>", "<span class='userdanger'>[user] attempts to feed the contents of [src] to [M].</span>")
 		if(!do_mob(user, M))
@@ -41,19 +49,19 @@
 			return // The drink might be empty after the delay, such as by spam-feeding
 		M.visible_message("<span class='danger'>[user] feeds the contents of [src] to [M].</span>", "<span class='userdanger'>[user] feeds the contents of [src] to [M].</span>")
 		log_combat(user, M, "fed", reagents.log_list())
-
-	var/fraction = min(gulp_size/reagents.total_volume, 1)
-	checkLiked(fraction, M)
-	reagents.reaction(M, INGEST, fraction)
-	reagents.trans_to(M, gulp_size, log = TRUE)
-	//GS13 Port - Fullness
-	if(iscarbon(M))
-		var/mob/living/carbon/human/human_eater = M
-		if(HAS_TRAIT(M, TRAIT_VORACIOUS))
-			human_eater.fullness += min(gulp_size * 0.67, reagents.total_volume * 0.67)
-		else
-			human_eater.fullness += min(gulp_size, reagents.total_volume) // GS13 drinks will fill your stomach
-	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_drink(src, M))) //If wearing a BS collar, use BS proc. If not, continue as normal
+		var/fraction = min(gulp_size/reagents.total_volume, 1)
+		checkLiked(fraction, M)
+		reagents.reaction(M, INGEST, fraction)
+		reagents.trans_to(M, gulp_size, log = TRUE)
+		//GS13 Port - Fullness
+		if(iscarbon(M))
+			var/mob/living/carbon/human/human_eater = M
+			if(HAS_TRAIT(M, TRAIT_VORACIOUS))
+				human_eater.fullness += min(gulp_size * 0.67, reagents.total_volume * 0.67)
+			else
+				human_eater.fullness += min(gulp_size, reagents.total_volume) // GS13 drinks will fill your stomach
+		playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return TRUE
 
 /obj/item/reagent_containers/food/drinks/CheckAttackCooldown(mob/user, atom/target)

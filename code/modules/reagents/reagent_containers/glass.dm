@@ -23,7 +23,11 @@
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
-
+	//GS13 - Bluespace collar addition
+	var/obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter/K = 0
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/human_eater = M
+		K = human_eater.wear_neck
 	if(istype(M))
 		if(user.a_intent == INTENT_HARM)
 			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
@@ -57,11 +61,15 @@
 				log_reagent("INGESTION: FED BY: [key_name(user)] (loc [user.loc] at [AREACOORD(UT)]) -> [key_name(M)] (loc [M.loc] at [AREACOORD(MT)]) - [reagents.log_list()]")
 			else
 				var/turf/T = get_turf(user)
-				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+				if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked())
+					user.visible_message("<span class='notice'>[user] effortlessly swallows a gulp of [src].</span>", "<span class='notice'>You effortlessly swallow a gulp of [src].</span>")
+				else
+					to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 				log_reagent("INGESTION: SELF: [key_name(user)] (loc [user.loc] at [AREACOORD(T)]) - [reagents.log_list()]")
 			var/fraction = min(5/reagents.total_volume, 1)
-			reagents.reaction(M, INGEST, fraction)
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5, null, null, null, self_fed? "self swallowed" : "fed by [user]"), 5)
+			if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_container(reagents, fraction, M, user))) //If wearing a BS collar, use BS proc. If not, continue as normal
+				reagents.reaction(M, INGEST, fraction)
+				addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5, null, null, null, self_fed? "self swallowed" : "fed by [user]"), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)

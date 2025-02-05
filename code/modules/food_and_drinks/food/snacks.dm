@@ -122,9 +122,13 @@ All foods are distributed among various categories. Use common sense.
 		var/mob/living/carbon/human/human_eater = M
 		if(istype(human_eater))
 			fullness = human_eater.fullness
-
+		var/obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter/K = human_eater.wear_neck //GS13 - Bluespace collar
 		if(M == user)								//If you're eating it yourself.
-			if(junkiness && M.satiety < -150 && M.nutrition > NUTRITION_LEVEL_STARVING + 50 )
+			//GS13 - Bluespace collar addition
+			if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked()) //Feeding with a collar ignores fullness or junkness
+				user.visible_message("<span class='notice'>[user] effortlessly [eatverb]s \the [src].</span>", "<span class='notice'>You effortlessly [eatverb] \the [src], feeling as if you haven't eaten anything at all.</span>")
+			//GS13 - End
+			else if(junkiness && M.satiety < -150 && M.nutrition > NUTRITION_LEVEL_STARVING + 50 )
 				to_chat(M, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
 				return FALSE
 			else if(fullness <= 50)
@@ -142,7 +146,12 @@ All foods are distributed among various categories. Use common sense.
 				M.SetNextAction(CLICK_CD_MELEE * 0.5) //nom nom nom
 		else
 			if(!isbrain(M))		//If you're feeding it to someone else.
-				if(fullness <= (FULLNESS_LEVEL_BEEG * (1 + M.overeatduration / 1000)))
+				//GS13 - Bluespace collar addition
+				if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked()) //Feeding with a collar ignores fullness
+					M.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>", \
+											"<span class='userdanger'>[user] attempts to feed you [src].</span>")
+				//GS13 - End
+				else if(fullness <= (FULLNESS_LEVEL_BEEG * (1 + M.overeatduration / 1000)))
 					M.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>", \
 										"<span class='userdanger'>[user] attempts to feed [M] [src].</span>")
 				else
@@ -159,27 +168,26 @@ All foods are distributed among various categories. Use common sense.
 			else
 				to_chat(user, "<span class='warning'>[M] doesn't seem to have a mouth!</span>")
 				return
+		if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_food(src, M, user))) //If wearing a BS collar, use BS proc. If not, continue as normal
+			if(reagents)								//Handle ingestion of the reagent.
+				if(M.satiety > -200)
+					M.satiety -= junkiness
+				playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				var/bitevolume = 1
+				if(HAS_TRAIT(M, TRAIT_VORACIOUS))
+					bitevolume = bitevolume * 0.67
+				if(istype(human_eater))
+					human_eater.fullness += bitevolume;
 
-		if(reagents)								//Handle ingestion of the reagent.
-			if(M.satiety > -200)
-				M.satiety -= junkiness
-			playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-			var/bitevolume = 1
-			if(HAS_TRAIT(M, TRAIT_VORACIOUS))
-				bitevolume = bitevolume * 0.67
-			human_eater.fullness += bitevolume;
-			if(istype(human_eater))
-				human_eater.fullness += bitevolume;
-
-			if(reagents.total_volume)
-				SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
-				var/fraction = min(bitesize / reagents.total_volume, 1)
-				reagents.reaction(M, INGEST, fraction)
-				reagents.trans_to(M, bitesize, log = TRUE)
-				bitecount++
-				On_Consume(M)
-				checkLiked(fraction, M)
-				return TRUE
+				if(reagents.total_volume)
+					SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
+					var/fraction = min(bitesize / reagents.total_volume, 1)
+					reagents.reaction(M, INGEST, fraction)
+					reagents.trans_to(M, bitesize, log = TRUE)
+					bitecount++
+					On_Consume(M)
+					checkLiked(fraction, M)
+					return TRUE
 
 	return FALSE
 

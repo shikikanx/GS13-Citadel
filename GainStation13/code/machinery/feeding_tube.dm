@@ -62,10 +62,17 @@
 	if(beaker)
 		if(mode)
 			if(beaker.reagents.total_volume)
+				// Check to see if the person is wearing a bluespace collar
+				var/obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter/K = 0
+				if(istype(attached, /mob/living/carbon/human))
+					var/mob/living/carbon/human/human_eater = attached
+					K = human_eater.wear_neck
 				var/transfer_amount = 5
-				var/fraction = min(transfer_amount/beaker.reagents.total_volume, 1) //the fraction that is transfered of the total volume
-				beaker.reagents.reaction(attached, INJECT, fraction, FALSE) //make reagents reacts, but don't spam messages
-				beaker.reagents.trans_to(attached, transfer_amount)
+				if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_feeding(transfer_amount, beaker, attached))) //If wearing a BS collar, use BS proc. If not, continue as normal
+					var/fraction = min(transfer_amount/beaker.reagents.total_volume, 1) //the fraction that is transfered of the total volume
+					beaker.reagents.reaction(attached, INJECT, fraction, FALSE) //make reagents reacts, but don't spam messages
+					beaker.reagents.trans_to(attached, transfer_amount)
+					attached.fullness += transfer_amount //Added feeding tube's causing fullness (But ignores limits~)
 				update_icon()
 
 			else if(!beaker.reagents.total_volume && istype(beaker, /obj/item/reagent_containers/food))

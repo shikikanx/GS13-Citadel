@@ -3927,6 +3927,7 @@
 #include "GainStation13\code\__HELPERS\transformation.dm"
 #include "GainStation13\code\clothing\accessory.dm"
 #include "GainStation13\code\clothing\backpacks.dm"
+#include "GainStation13\code\clothing\bluespace_collar.dm"
 #include "GainStation13\code\clothing\calorite_collar.dm"
 #include "GainStation13\code\clothing\fat_mask.dm"
 #include "GainStation13\code\clothing\gloves.dm"

@@ -111,12 +111,18 @@ Behavior that's still missing from this component that original food items had t
 
 	. = COMPONENT_ITEM_NO_ATTACK //Point of no return I suppose
 
+	var/obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter/K = human_eater.wear_neck //GS13 - Bluespace collar
 	if(eater == feeder)//If you're eating it yourself.
 		if(!do_mob(feeder, eater, eat_time)) //Gotta pass the minimal eat time
 			return
 		var/eatverb = pick(eatverbs)
-		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
+		//GS13 - Bluespace collar addition
+		if (istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.islinked())
+			eater.visible_message("<span class='notice'>[eater] effortlessly [eatverb]s \the [parent].</span>", "<span class='notice'>You effortlessly [eatverb] \the [parent], feeling as if you haven't eaten anything at all.</span>")
+		//GS13 - End
+		else if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
 			to_chat(eater, "<span class='warning'>You don't feel like eating any more junk food at the moment!</span>")
+
 			return
 		else if(fullness <= FULLNESS_LEVEL_HALF_FULL)
 			eater.visible_message("<span class='notice'>[eater] hungrily [eatverb]s \the [parent], gobbling it down!</span>", "<span class='notice'>You hungrily [eatverb] \the [parent], gobbling it down!</span>")
@@ -147,7 +153,8 @@ Behavior that's still missing from this component that original food items had t
 		eater.visible_message("<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
 									"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>")
 
-	TakeBite(eater, feeder)
+	if (!(istype(K, /obj/item/clothing/neck/petcollar/locked/bluespace_collar_transmitter) && K.transpose_food(src, eater, feeder)))
+		TakeBite(eater, feeder)
 
 ///This function lets the eater take a bite and transfers the reagents to the eater.
 /datum/component/edible/proc/TakeBite(mob/living/eater, mob/living/feeder)
