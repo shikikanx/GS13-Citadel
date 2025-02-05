@@ -39,7 +39,7 @@
 			M.reagents.add_reagent(infection_reagent, max(A.totalStageSpeed(), 1))
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)
-	if(M.reagents.get_reagent_amount(/datum/reagent/blueberry_juice) > 0 && (reagents.total_volume + min(amount_per_transfer_from_this, 10)) <= volume)
+	if(M.reagents && M.reagents.get_reagent_amount(/datum/reagent/blueberry_juice) > 0 && (reagents.total_volume + min(amount_per_transfer_from_this, 10)) <= volume)
 		reagents.add_reagent(/datum/reagent/blueberry_juice, min(10, amount_per_transfer_from_this))
 		M.reagents.remove_reagent(/datum/reagent/blueberry_juice, min(10, amount_per_transfer_from_this))
 		if(M != user)
