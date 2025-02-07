@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(uncapped_resize_areas, list(/area/command/bridge, /area/maintenance, /area/security/prison, /area/holodeck, /area/commons/vacant_room/office, /area/space, /area/ruin, /area/lavaland, /area/awaymission, /area/centcom, /area/fatlab))
+GLOBAL_LIST_INIT(uncapped_resize_areas, list(/area/command/bridge, /area/maintenance, /area/security/prison, /area/holodeck, /area/commons/vacant_room/office, /area/space, /area/ruin, /area/lavaland, /area/awaymission, /area/centcom, /area/fatlab, /area/xenoarch))
 
 /mob/living
 	var/burpslurring = 0 //GS13 - necessary due to "say" being defined by mob/living

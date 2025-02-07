@@ -1,6 +1,6 @@
 /mob/living/carbon/alien/humanoid/royal
 	//Common stuffs for Praetorian and Queen
-	icon = 'icons/mob/alienqueen.dmi'
+	icon = 'GainStation13/icons/mob/alienqueen.dmi' //GS13 - swapping out xeno queen sprites to be more in tune with Geiger's designs
 	status_flags = 0
 	unique_name = 0
 	pixel_x = -16

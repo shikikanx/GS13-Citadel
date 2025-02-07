@@ -611,4 +611,4 @@
 
 /obj/item/paper/fluff/ruins/gateway_fats/facility_report8
 	name = "Report #192 A38 - Lipoifium"
-	info = "Subject 2 - Male, Anthropomorphic Fox, blue fur. Name: Sam S. At the beginning of the testing, subject was recorded to have weight of 160lbs. After a day minutes of exposure, their weight went into quadruple digits. Testing had to be concluded due to insufficient build of the test chamber. More detailed report found in the system."
+	info = "Subject 2 - Male, Anthropomorphic Fox, blue fur. Name: Sam S. At the beginning of the testing, subject was recorded to have weight of 160lbs. After a day of exposure, their weight went into quadruple digits. Testing had to be concluded due to insufficient build of the test chamber. More detailed report found in the system."

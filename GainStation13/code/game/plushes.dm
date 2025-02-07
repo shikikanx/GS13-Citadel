@@ -81,3 +81,8 @@
 	desc = "A plush of a silly-eyed xeno seccie."
 	icon_state = "crowbars"
 	attack_verb = list("squished", "crowbared", "beno'd")
+
+/obj/item/toy/plush/gs13/sharky
+	desc = "A plush of a toothy, sharky creature."
+	icon_state = "sharky"
+	attack_verb = list("squished", "bit", "sharkied")

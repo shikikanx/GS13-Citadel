@@ -3,16 +3,16 @@
 //item presets for donator items and other gunk
 //
 /obj/item/clothing/glasses/eyepatch/white
+	icon ='GainStation13/icons/obj/clothing/glasses.dmi'
+	mob_overlay_icon = 'GainStation13/icons/mob/eyes.dmi'
 	name = "White eyepatch"
 	desc = "Smells faintly of medicine and headaches."
 	icon_state = "eyepatch_white"
 	item_state = "eyepatch_white"
 
-/obj/item/clothing/glasses/eyepatch/cabal
+/obj/item/clothing/glasses/eyepatch/white/cabal
 	name = "Cabal's Eyepatch"
 	desc = "Vulpine sluts only."
-	icon_state = "eyepatch_white"
-	item_state = "eyepatch_white"
 
 /obj/item/toy/sword/chloesabre/halsey
 	name = "Halsey's Sabre"
@@ -50,3 +50,4 @@
 /obj/item/crowbar/bronze/glaug
 	name = "Milwaukee Pocket Crowbar"
 	desc = "Much more expensive. Still serves the same function."
+

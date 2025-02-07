@@ -112,6 +112,9 @@
 	see_in_dark = 10
 	maxHealth = 20
 	health = 20
+	obj_damage = 0
+	melee_damage_lower = 0.001
+	melee_damage_upper = 0.001
 	blood_volume = 0 //don't want it to bleed
 	del_on_death = TRUE //it's an apparition, shouldn't have a body
 	movement_type = FLYING

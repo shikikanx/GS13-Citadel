@@ -2,8 +2,11 @@
 	name = "drone mask"
 	desc = "A mask that can be connected to an air supply. When seen from certain angles, an orange light is reflected by it."
 	icon = 'GainStation13/icons/obj/clothing/fat_mask.dmi'
+	mob_overlay_icon =  'GainStation13/icons/mob/mask.dmi'
+	anthro_mob_worn_overlay = 'GainStation13/icons/mob/mask.dmi'
 	icon_state = "fat_mask"
 	item_state = "fat_mask"
+	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
 	var/mob/living/carbon/C
 
 /obj/item/clothing/mask/gas/fattening/equipped(mob/M, slot)
