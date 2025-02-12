@@ -79,6 +79,10 @@
 
 	if(prob(chew_probability))
 		var/turf/open/floor/F = get_turf(src)
+		// GS13 - EDIT
+		if(istype(F, /turf/open/floor/catwalk_floor))
+			return
+		// GS13 - END EDIT
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
